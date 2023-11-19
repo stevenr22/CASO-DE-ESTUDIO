@@ -17,11 +17,11 @@
             </div>
 
             <div class="card-body">
-                <form class="form-group">
+                <form class="form-group" method="post" action="#">
                     <label><b>Nombre:</b></label>
                     <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresar el nombre">
                     <label><b>Apellidos:</b></label>
-                    <input type="text" class="form-control" name="apellidos" id="apellidos" placeholder="Ingresar el nombre">
+                    <input type="text" class="form-control" name="apellidos" id="apellido" placeholder="Ingresar el nombre">
                     <label><b>Correo:</b></label>
                     <input type="email" class="form-control" name="email" id="email" placeholder="Ingresar el nombre">
                     <label><b>Seleccionar de una lista de opciones de póliza</b></label>
@@ -33,26 +33,79 @@
                     </select>
                     <label><b>Seleccionar de pago</b></label>
                     <select name="SelecPago" id="SelecPago" class="form-control">
-                        <option>Contado</option>
-                        <option>Credito</option>
+                        <option id="Contado">Contado</option>
+                        <option id="Credito">Credito</option>
                    
                     </select>
                     <label><b>Seleccionar de forma de entrega del documento</b></label>
                     <select name="SelectFormEntrega" id="SelectFormEntrega" class="form-control">
-                        <option>Impresa</option>
-                        <option>Correo</option>
-                        <option>Whatsapp</option>
+                        <option id="Impresa">Impresa</option>
+                        <option id="Correo">Correo</option>
+                        <option id="Whatsapp">Whatsapp</option>
                     </select>
 
                     <br>
-                    <button class="btn btn-primary btn-lg">REGISTRAR</button>
+                    <button class="btn btn-primary btn-lg" type="button"  onclick="calcularPoliza()">REGISTRAR</button>
                 </form>
             </div>
         </div>
     </div>
-    <script>
-      
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+    <script>
+        function ObtenerDatosCliente(){
+            var nombre = document.getElementById("nombre").value;
+            var ape = document.getElementById("apellido").value;
+            var cor = document.getElementById("email").value;
+            
+
+        }
+        function ObtenerMetodoPago(){
+            var pagoSelec = document.getElementById("SelecPago").value;
+            return pagoSelec;
+
+
+        }
+        function ObtenerForma(){
+            var obForm = document.getElementById("SelectFormEntrega").value;
+            return obForm;
+
+        }
+        function calcularPoliza() {
+            var polizaSeleccionada = document.getElementById("slecPOLI").value;
+            var resultadoCalculo = calcularPrima(polizaSeleccionada);
+            var MetodoPago =ObtenerMetodoPago();
+            var forma = ObtenerForma();
+            Swal.fire({
+                title: 'Resultado del cálculo',
+                html: 'Póliza seleccionada: ' + polizaSeleccionada + '<br>Con un descuento de $' + resultadoCalculo + 
+                '<br>Su metodo de pago es:'+MetodoPago+'<br>Su forma es: '+forma+'<br>DATOS DEL CLIENTE<br>Nombre:',
+                icon: 'info',
+                confirmButtonText: 'Aceptar'
+            });
+      
+        }
+
+        function calcularPrima(poliza) {
+            switch (poliza) {
+                case "Vida":
+                    // Lógica de cálculo para la póliza de vida
+                    vida = 65000;
+                    respuesta = ((65000*0.25)/100)*0.12
+                    return respuesta; // Supongamos que la prima para Vida es $500
+                case "Vehiculos":
+                    // Lógica de cálculo para la póliza de vehículos
+                    return 1000; // Supongamos que la prima para Vehículos es $1000
+                case "Hogar":
+                    // Lógica de cálculo para la póliza de hogar
+                    return 700; // Supongamos que la prima para Hogar es $700
+                case "Viajes":
+                    // Lógica de cálculo para la póliza de viajes
+                    return 200; // Supongamos que la prima para Viajes es $200
+                default:
+                    return 0; // En caso de no coincidir con ninguna póliza conocida
+            }
+        }
     </script>
 </body>
 </html>
