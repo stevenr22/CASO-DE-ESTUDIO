@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link rel="stylesheet" href="bootstrap.css">
+    <title>REGISTRO DE DATO .:|:. BANCO</title>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-tittle">
+                    <h2><b>REGISTRO DE DATOS DEL CLIENTE</b></h2>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <form class="form-group">
+                    <label><b>Nombre:</b></label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresar el nombre">
+                    <label><b>Apellidos:</b></label>
+                    <input type="text" class="form-control" name="apellidos" id="apellidos" placeholder="Ingresar el nombre">
+                    <label><b>Correo:</b></label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Ingresar el nombre">
+                    <label><b>Seleccionar de una lista de opciones de póliza</b></label>
+                    <select name="slecPOLI" id="slecPOLI" class="form-control">
+                        <option id="valVida">Vida</option>
+                        <option id="valVehi">Vehiculos</option>
+                        <option id="valHog">Hogar</option>
+                        <option id="valVia">Viajes</option>
+                    </select>
+                    <label><b>Seleccionar de pago</b></label>
+                    <select name="SelecPago" id="SelecPago" class="form-control">
+                        <option>Contado</option>
+                        <option>Credito</option>
+                   
+                    </select>
+                    <label><b>Seleccionar de forma de entrega del documento</b></label>
+                    <select name="SelectFormEntrega" id="SelectFormEntrega" class="form-control">
+                        <option>Impresa</option>
+                        <option>Correo</option>
+                        <option>Whatsapp</option>
+                    </select>
+
+                    <br>
+                    <button class="btn btn-primary btn-lg">REGISTRAR</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+      
+
+    </script>
+</body>
+</html>
