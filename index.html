@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    
     <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="sweetalert2.css">
     <title>REGISTRO DE DATO .:|:. BANCO</title>
 </head>
 <body>
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <div class="card-tittle">
+                <div class="card-title">
                     <h2><b>REGISTRO DE DATOS DEL CLIENTE</b></h2>
                 </div>
             </div>
@@ -50,7 +51,7 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="sweetalert2.js"></script>
 
     <script>
         function ObtenerDatosCliente(){
@@ -78,9 +79,9 @@
             var forma = ObtenerForma();
             Swal.fire({
                 title: 'Resultado del cálculo',
-                html: 'Póliza seleccionada: ' + polizaSeleccionada + '<br>Con un descuento de $' + resultadoCalculo + 
+                html: 'Póliza seleccionada: ' + polizaSeleccionada + '<br>Total de $' + resultadoCalculo + 
                 '<br>Su metodo de pago es:'+MetodoPago+'<br>Su forma es: '+forma+'<br>DATOS DEL CLIENTE<br>Nombre:',
-                icon: 'info',
+                icon: 'success',
                 confirmButtonText: 'Aceptar'
             });
       
@@ -93,15 +94,7 @@
                     vida = 65000;
                     respuesta = ((65000*0.25)/100)*0.12
                     return respuesta; // Supongamos que la prima para Vida es $500
-                case "Vehiculos":
-                    // Lógica de cálculo para la póliza de vehículos
-                    return 1000; // Supongamos que la prima para Vehículos es $1000
-                case "Hogar":
-                    // Lógica de cálculo para la póliza de hogar
-                    return 700; // Supongamos que la prima para Hogar es $700
-                case "Viajes":
-                    // Lógica de cálculo para la póliza de viajes
-                    return 200; // Supongamos que la prima para Viajes es $200
+                
                 default:
                     return 0; // En caso de no coincidir con ninguna póliza conocida
             }
