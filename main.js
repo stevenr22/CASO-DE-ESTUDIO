@@ -1,44 +1,32 @@
-// Variables
-var tipoPoliza = ""; // Aquí deberías obtener el tipo de póliza seleccionado en el formulario
-var precioOriginal = 0;
-var descuento = 0;
-var iva = 0;
-var totalPagar = 0;
+function calcularTotal() {
+    // Obtener valores del formulario
+    var nombre = document.getElementById('nombre').value;
+    var categoria = document.getElementById('categoria').value;
+    var formaPago = document.querySelector('input[name="pago"]:checked').value;
 
-// Obtener el precio original según el tipo de póliza
-switch (tipoPoliza) {
-    case "Vida":
-        precioOriginal = 65000;
-        descuento = 0.25; // 25%
-        break;
-    case "Vehículos":
-        precioOriginal = 25000;
-        descuento = 20;
-        break;
-    case "Hogar":
-        precioOriginal = 35000;
-        descuento = 15;
-        break;
-    case "Viajes":
-        precioOriginal = 15000;
-        descuento = 5;
-        break;
-    // Puedes agregar más casos según sea necesario
+    // Definir descuentos
+    var descuentos = {
+        utensilios: { valor: 1500, porcentaje: 0.2 },
+        electrodomesticos: { valor: 2500, porcentaje: 0.1 },
+        reposteria: { valor: 1000, porcentaje: 0.05 }
+    };
+
+    // Calcular descuento
+    var descuento = 0;
+    if (descuentos.hasOwnProperty(categoria)) {
+        descuento = descuentos[categoria].valor * descuentos[categoria].porcentaje;
+    }
+
+    // Simular cantidad y valor total (puedes ajustar esto según tu lógica)
+    var cantidadVendida = 1;
+    var valorTotal = 50; // Ejemplo
+
+    // Calcular total a pagar
+    var totalPagar = valorTotal - descuento;
+
+    // Mostrar resultados en la factura
+    document.getElementById('cantidadVendida').innerText = cantidadVendida;
+    document.getElementById('valorTotal').innerText = valorTotal;
+    document.getElementById('descuento').innerText = descuento;
+    document.getElementById('totalPagar').innerText = totalPagar;
 }
-
-// Calcular el descuento
-var montoDescuento = (precioOriginal * descuento) + descuento;
-
-// Calcular el precio con descuento
-var precioConDescuento = precioOriginal - montoDescuento;
-
-// Calcular el IVA
-iva = precioConDescuento * 0.12;
-
-// Calcular el total a pagar
-totalPagar = precioConDescuento + iva;
-
-// Imprimir o usar el resultado según tus necesidades
-console.log("Precio con descuento: " + precioConDescuento);
-console.log("IVA: " + iva);
-console.log("Total a pagar: " + totalPagar);

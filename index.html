@@ -1,104 +1,145 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+
+    
     <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href="sweetalert2.css">
-    <title>REGISTRO DE DATO .:|:. BANCO</title>
+    <link rel="stylesheet" href="style.css">
+    <title>REGISTROS</title>
 </head>
 <body>
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <div class="card-title">
-                    <h2><b>REGISTRO DE DATOS DEL CLIENTE</b></h2>
-                </div>
+                <h2>REGISTRO DE INFORMACION</h2>
             </div>
+            <div class="card-body" >
+                <form action="#" class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el nombre">
+                    <label for="poliza">SELECCIONE LA POLIZA</label>
+                    <select name="selectPOLIZA" id="selectPOLIZA" class="form-control">
+                        <option value="Vida">Vida</option>
+                        <option value="Vehiculos">Vehiculos</option>
+                        <option value="Hogar">Hogar</option>
+                        <option value="Viaje">Viaje</option>
+                    </select>
+                    <label for="poliza">SELECCIONE TIPO DE PAGO</label>
+                    <select name="selectFORMAPAGO" class="form-control" id="selectFORMAPAGO">FORMA DE PAGO
+                        <option value="tarjeta">tarjeta</option>
+                        <option value="efectivo">efectivo</option>
+                    
 
-            <div class="card-body">
-                <form class="form-group" method="post" action="#">
-                    <label><b>Nombre:</b></label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresar el nombre">
-                    <label><b>Apellidos:</b></label>
-                    <input type="text" class="form-control" name="apellidos" id="apellido" placeholder="Ingresar el nombre">
-                    <label><b>Correo:</b></label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Ingresar el nombre">
-                    <label><b>Seleccionar de una lista de opciones de póliza</b></label>
-                    <select name="slecPOLI" id="slecPOLI" class="form-control">
-                        <option id="valVida">Vida</option>
-                        <option id="valVehi">Vehiculos</option>
-                        <option id="valHog">Hogar</option>
-                        <option id="valVia">Viajes</option>
                     </select>
-                    <label><b>Seleccionar de pago</b></label>
-                    <select name="SelecPago" id="SelecPago" class="form-control">
-                        <option id="Contado">Contado</option>
-                        <option id="Credito">Credito</option>
-                   
-                    </select>
-                    <label><b>Seleccionar de forma de entrega del documento</b></label>
-                    <select name="SelectFormEntrega" id="SelectFormEntrega" class="form-control">
-                        <option id="Impresa">Impresa</option>
-                        <option id="Correo">Correo</option>
-                        <option id="Whatsapp">Whatsapp</option>
-                    </select>
-
+                    <label for="poliza">SELECCIONE EL TIPO DE FORMA DE ENTREGA</label>
+                        <br>
+                
+                            <input type="checkbox" id="impresion" name="impresion" value="impresion">
+                            <label for="Imprimir"> Imprimir</label><br>
+                            <input type="checkbox" id="correo" name="correo" value="correo">
+                            <label for="correo"> correo</label><br>
+                            <input type="checkbox" id="wasa" name="wasa" value="wasa">
+                            <label for="wasa"> wasa</label><br><br>
+                     
                     <br>
-                    <button class="btn btn-primary btn-lg" type="button"  onclick="calcularPoliza()">REGISTRAR</button>
+                    <button type="button" class="btn btn-success" onclick="mostrarInfo();">REGISTRAR
+                    </button>
+
                 </form>
             </div>
+
         </div>
+
     </div>
-    <script src="sweetalert2.js"></script>
-
+       
+  
     <script>
-        function ObtenerDatosCliente(){
+        function obtenerNombre(){
             var nombre = document.getElementById("nombre").value;
-            var ape = document.getElementById("apellido").value;
-            var cor = document.getElementById("email").value;
+            return nombre
+        }
+        function obtenerPoliza(){
+            var poliza = document.getElementById("selectPOLIZA").value;
+            return poliza
+
+        }
+        function obtenerFormaPago(){
+            var fpago = document.getElementById("selectFORMAPAGO").value;
+            return fpago
+        }
+        function CalcularporPoliza(){
+            var polizaSelect = obtenerPoliza();
+            if (polizaSelect=="Vida"){
+                valorPoliza = 65000;
+                IVA = 65000*0.12;
+
+                desc = (valorPoliza)*0.25;
+                total = valorPoliza-desc+IVA;
+                return total
             
+            }else if (polizaSelect=="Vehiculos"){
+                valorPoliza = 25000;
+                total = valorPoliza-20;
+                return total
 
-        }
-        function ObtenerMetodoPago(){
-            var pagoSelec = document.getElementById("SelecPago").value;
-            return pagoSelec;
 
 
-        }
-        function ObtenerForma(){
-            var obForm = document.getElementById("SelectFormEntrega").value;
-            return obForm;
+            }else if(polizaSelect=="Hogar"){
+                valorPoliza = 35000;
+                tot = valorPoliza-15
+                return tot
 
-        }
-        function calcularPoliza() {
-            var polizaSeleccionada = document.getElementById("slecPOLI").value;
-            var resultadoCalculo = calcularPrima(polizaSeleccionada);
-            var MetodoPago =ObtenerMetodoPago();
-            var forma = ObtenerForma();
-            Swal.fire({
-                title: 'Resultado del cálculo',
-                html: 'Póliza seleccionada: ' + polizaSeleccionada + '<br>Total de $' + resultadoCalculo + 
-                '<br>Su metodo de pago es:'+MetodoPago+'<br>Su forma es: '+forma+'<br>DATOS DEL CLIENTE<br>Nombre:',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
-            });
-      
-        }
+            }else{
+                valorPoliza = 15000;
+                tot = valorPoliza-5
+                return tot
 
-        function calcularPrima(poliza) {
-            switch (poliza) {
-                case "Vida":
-                    // Lógica de cálculo para la póliza de vida
-                    vida = 65000;
-                    respuesta = ((65000*0.25)/100)*0.12
-                    return respuesta; // Supongamos que la prima para Vida es $500
-                
-                default:
-                    return 0; // En caso de no coincidir con ninguna póliza conocida
             }
         }
+        /*  •	
+            •	Vehículos $ 25000	Descuento $20 (-)
+            •	Hogar $35000		Descuento $15 (-)
+            •	Viajes $15000		Descuento $5 (-)
+        */
+        
+        function mostrarInfo(){
+            var obNombre = obtenerNombre();
+            var tipoPoliza = obtenerPoliza();
+            var fpago = obtenerFormaPago();
+            var total = CalcularporPoliza();
+
+            //OBTENER FORMA DE ENTREGA
+            //CREO LISTA
+            var opcionesSeleccionadas = [];
+            //AGG VALORES A VARIABLES
+
+            var im = document.getElementById("impresion").checked;
+            var cor = document.getElementById("correo").checked;
+            var was = document.getElementById("wasa").checked;
+
+            //CREO LA CONDICIONAL PARA AGREGAR LOS VALORES A LA LISTA
+            if (im){
+                opcionesSeleccionadas.push("Imprimir");
+
+            }
+            if (cor) {
+                opcionesSeleccionadas.push("Correo");
+            } 
+            if (was) {
+                opcionesSeleccionadas.push("Wasa");
+            }
+
+            //PREGUNTA SI EN LA LISTA EXISTEN VALORES O NO
+            if (opcionesSeleccionadas.length > 0) {
+                alert("Tu nombre es: "+obNombre+"\nTu poliza es: "+tipoPoliza+
+                "\nTu forma de pago es: "+fpago+"\nTu forma de imprimir es: "+opcionesSeleccionadas.join(', ')+
+                "\nTOTAL ES DE: $"+total);
+   
+            } else {
+                alert('No has seleccionado ninguna opción.');
+            }  
+        }
+
     </script>
 </body>
 </html>

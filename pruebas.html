@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Venta de Artículos de Cocina</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario de Venta</h1>
+        <form id="ventaForm">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required>
+
+            <label for="categoria">Categoría:</label>
+            <select id="categoria">
+                <option value="utensilios">Utensilios y Accesorios</option>
+                <option value="electrodomesticos">Electrodomésticos</option>
+                <option value="tablas">Tablas y Cuchillos</option>
+                <option value="reposteria">Repostería</option>
+            </select>
+
+            <label for="pago">Forma de Pago:</label>
+            <input type="radio" name="pago" value="contado" checked> Contado
+            <input type="radio" name="pago" value="credito"> Crédito
+
+            <button type="button" onclick="calcularTotal()">Calcular Total</button>
+
+            <h2>Factura</h2>
+            <p>Cantidad Vendida: <span id="cantidadVendida"></span></p>
+            <p>Valor Total: $<span id="valorTotal"></span></p>
+            <p>Descuento: $<span id="descuento"></span></p>
+            <p>Total a Pagar: $<span id="totalPagar"></span></p>
+        </form>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
