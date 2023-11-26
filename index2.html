@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" href="bootstrap.css">
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="sweetalert2.css">
         <title>VENTAS DE PRODUCTOS</title>
            
 
@@ -28,16 +29,16 @@
                         
                         <label for="Categoria" >Categoria</label>
                         <select class="form-control" name="categoria" id="categoria">
-                            <option value="1">Utensilios y accesorios</option>
-                            <option value="2">Electrodomésticos, Tablas </option>
-                            <option value="3">Cuchillos, Repostería</option>
+                            <option value="Utensilios y accesorios">Utensilios y accesorios</option>
+                            <option value="Electrodomésticos, Tablas">Electrodomésticos, Tablas</option>
+                            <option value="Cuchillos, Repostería">Cuchillos, Repostería</option>
                             
 
                         </select>
                         <label for="Pago">Pago por medio:</label>
                         <select class="form-control" name="Pago" id="Pago">
-                            <option value="1">Contado</option>
-                            <option value="2">Credito</option>
+                            <option value="Contado">Contado</option>
+                            <option value="Credito">Credito</option>
                         </select>
                        
                     </form>
@@ -48,49 +49,10 @@
                 </div>
             </div>
         </div>
-
+        <script src="sweetalert2.js"></script>
         <script>
-          
-
-                function obtenerDatos(){
-                    var datos = [];
-                    var ruc = document.getElementById("ruc").value;
-                    var nombre = document.getElementById("nombre").value;
-                    var dir = document.getElementById("direccion").value;
-
-                    if (ruc){
-                        datos.push("RUC: " + ruc);
-                    }
-                    if(nombre){
-                        datos.push("Nombre: " + nombre);
-                    }
-                    if(dir){
-                        datos.push("Dirección: " + dir);
-                    }
-
-                    return datos;
-                }
-                function obtenerCategoria(){
-                    var Categoria = document.getElementById("categoria").value;
-                    if (Categoria == 1) {
-                        Categoria = "Utensilios y accesorios"
-                    } if(Categoria == 2){
-                        Categoria = "Electrodomésticos, Tablas"
-                    }
-                    if(Categoria == 3) {
-                        Categoria = "Cuchillos, Repostería"
-                    }
-                    return Categoria
-
-                }
-                  /*Los valores para los descuentos son:
-                	Utensilios $1500		Descuento 20%
-                	Electrodomésticos $2500	Descuento 10%
-                	Repostería $1000		Descuento 5%
-                	Presentar en la factura cantidad vendida, el valor a Total, descuento, 
-                total a pagar.*/
                 function Calculo() {
-                    var categoriaOP = obtenerCategoria();
+                    var categoriaOP = document.getElementById("categoria").value;
                     var cantidad = 23; // simulo la cantidad de producto
                     var valortotal = 50; // simulo el valor total
 
@@ -118,33 +80,32 @@
                         totalPagar: totalPagar
                     };
                 }
-                function obtenerPago(){
-                    var Pago = document.getElementById("Pago").value;
-                    if (Pago == 1) {
-                        Pago = "Contado"
-                    } if(Pago == 2){
-                        Pago = "Credito"
-                    }
-                   
-                    return Pago
-
-                }
+                
+               
 
                 function mostrarINFO() {
-                    var datos = obtenerDatos();
-                    var categoria = obtenerCategoria();
-                    var pago = obtenerPago();
+                    var ruc = document.getElementById("ruc").value;
+                    var nombre = document.getElementById("nombre").value;
+                    var dir = document.getElementById("direccion").value;
+                    var categoria = document.getElementById("categoria").value;
+
+                    var pago = document.getElementById("Pago").value;
                     var calculo = Calculo();
 
                     // Muestra todos los valores en una sola alerta
-                    alert("***************FACTURA EMITIDA*****************\n" +
-                        datos.join("\n") +
-                        "\nSu categoria seleccionada es: " + categoria +
-                        "\nSu forma de pago es: " + pago +
-                        "\nCantidad vendida: " + calculo.cantidad +
-                        "\nValor total: " + calculo.valortotal +
-                        "\nDescuento: " + calculo.descuento +
-                        "\nTotal a pagar: " + calculo.totalPagar);
+                    Swal.fire({
+                        title: '***************FACTURA*******************',
+                        html: 'RUC: ' + ruc + '<br>' +
+                            'Nombre: ' + nombre + '<br>' +
+                            'Dirección: ' + dir + '<br>' +
+                            'Categoría seleccionada: ' + categoria + '<br>' +
+                            'Forma de pago: ' + pago + '<br>' +
+                            'Cantidad vendida: ' + calculo.cantidad + '<br>' +
+                            'Valor total: ' + calculo.valortotal + '<br>' +
+                            'Descuento: ' + calculo.descuento + '<br>' +
+                            'Total a pagar: ' + calculo.totalPagar,
+                    });
+                   
                 }
 
         </script>

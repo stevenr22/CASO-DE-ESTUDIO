@@ -5,6 +5,7 @@
     
     <link rel="stylesheet" href="bootstrap.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sweetalert2.css">
     <title>REGISTROS</title>
 </head>
 <body>
@@ -17,6 +18,8 @@
                 <form action="#" class="form-group">
                     <label for="nombre">Nombre:</label>
                     <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el nombre">
+                    <label for="nombre">Apellido:</label>
+                    <input type="text" class="form-control" name="ape" id="ape" placeholder="Ingrese el apellido">
                     <label for="poliza">SELECCIONE LA POLIZA</label>
                     <select name="selectPOLIZA" id="selectPOLIZA" class="form-control">
                         <option value="Vida">Vida</option>
@@ -32,16 +35,16 @@
 
                     </select>
                     <label for="poliza">SELECCIONE EL TIPO DE FORMA DE ENTREGA</label>
-                        <br>
+                       
                 
                             <input type="checkbox" id="impresion" name="impresion" value="impresion">
-                            <label for="Imprimir"> Imprimir</label><br>
+                            <label for="Imprimir"> Imprimir</label>
                             <input type="checkbox" id="correo" name="correo" value="correo">
-                            <label for="correo"> correo</label><br>
+                            <label for="correo"> correo</label>
                             <input type="checkbox" id="wasa" name="wasa" value="wasa">
-                            <label for="wasa"> wasa</label><br><br>
+                            <label for="wasa"> wasa</label>
                      
-                    <br>
+                    
                     <button type="button" class="btn btn-success" onclick="mostrarInfo();">REGISTRAR
                     </button>
 
@@ -51,10 +54,11 @@
         </div>
 
     </div>
+    <script src="sweetalert2.js"></script>
        
   
     <script>
-        function obtenerNombre(){
+        /*function obtenerNombre(){
             var nombre = document.getElementById("nombre").value;
             return nombre
         }
@@ -66,46 +70,36 @@
         function obtenerFormaPago(){
             var fpago = document.getElementById("selectFORMAPAGO").value;
             return fpago
-        }
+        }*/
         function CalcularporPoliza(){
-            var polizaSelect = obtenerPoliza();
-            if (polizaSelect=="Vida"){
+            var tipoPoliza = document.getElementById("selectPOLIZA").value;
+            if (tipoPoliza == "Vida"){
                 valorPoliza = 65000;
-                IVA = 65000*0.12;
-
-                desc = (valorPoliza)*0.25;
-                total = valorPoliza-desc+IVA;
-                return total
-            
-            }else if (polizaSelect=="Vehiculos"){
+                IVA = 65000 * 0.12;
+                desc = (valorPoliza) * 0.25;
+                total = valorPoliza - desc + IVA;
+            } else if (tipoPoliza == "Vehiculos"){
                 valorPoliza = 25000;
-                total = valorPoliza-20;
-                return total
-
-
-
-            }else if(polizaSelect=="Hogar"){
+                total = valorPoliza - 20;
+            } else if (tipoPoliza == "Hogar"){
                 valorPoliza = 35000;
-                tot = valorPoliza-15
-                return tot
-
-            }else{
+                total = valorPoliza - 15;
+            } else if (tipoPoliza == "Viaje"){
                 valorPoliza = 15000;
-                tot = valorPoliza-5
-                return tot
-
+                total = valorPoliza - 5;
             }
+
+            return total;
         }
-        /*  •	
-            •	Vehículos $ 25000	Descuento $20 (-)
-            •	Hogar $35000		Descuento $15 (-)
-            •	Viajes $15000		Descuento $5 (-)
-        */
+        
         
         function mostrarInfo(){
-            var obNombre = obtenerNombre();
-            var tipoPoliza = obtenerPoliza();
-            var fpago = obtenerFormaPago();
+           
+            var nombre = document.getElementById("nombre").value;
+            var ape = document.getElementById("ape").value;
+            var tipoPoliza = document.getElementById("selectPOLIZA").value;
+            var fpago = document.getElementById("selectFORMAPAGO").value;
+
             var total = CalcularporPoliza();
 
             //OBTENER FORMA DE ENTREGA
@@ -131,12 +125,24 @@
 
             //PREGUNTA SI EN LA LISTA EXISTEN VALORES O NO
             if (opcionesSeleccionadas.length > 0) {
-                alert("Tu nombre es: "+obNombre+"\nTu poliza es: "+tipoPoliza+
-                "\nTu forma de pago es: "+fpago+"\nTu forma de imprimir es: "+opcionesSeleccionadas.join(', ')+
-                "\nTOTAL ES DE: $"+total);
+                Swal.fire({
+                    title: 'Información Registrada',
+                    html:
+                        'Tu nombre es: ' + nombre + '<br>' +
+                        'Apellido: ' + ape + '<br>' +
+                        'Tu póliza es: ' + tipoPoliza + '<br>' +
+                        'Tu forma de pago es: ' + fpago + '<br>' +
+                        'Tu forma de imprimir es: ' + opcionesSeleccionadas.join(', ') + '<br>' +
+                        'TOTAL ES DE: $' + total,
+                    icon: 'success'
+                });
    
             } else {
-                alert('No has seleccionado ninguna opción.');
+                Swal.fire({
+                    title: 'ERROR........',
+                    text: 'No has seleccionado ninguna opción.',
+                    icon: 'warning'
+                });
             }  
         }
 
